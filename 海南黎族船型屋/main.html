@@ -1,0 +1,532 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>海南白查村黎族船型屋非遗展示</title>
+    <style>
+        /* 全局样式：黎族特色配色（咖色/木色/草绿/米白），重置默认样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft Yahei", "思源宋体", sans-serif;
+        }
+        body {
+            background-color: #f8f5f0;
+            color: #332b22;
+            line-height: 1.7;
+            overflow-x: hidden;
+            width: 100%;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 30px;
+            width: 100%;
+        }
+        h2 {
+            font-size: 2rem;
+            color: #8c6d31;
+            margin-bottom: 2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #a8c29f;
+            display: inline-block;
+            position: relative;
+            z-index: 2;
+        }
+        h3 {
+            font-size: 1.3rem;
+            color: #6d4c41;
+            margin: 1.5rem 0 1rem;
+            position: relative;
+            z-index: 2;
+        }
+        p, li {
+            font-size: 1rem;
+            margin-bottom: 0.8rem;
+            position: relative;
+            z-index: 2;
+        }
+        ul {
+            list-style-position: inside;
+            padding-left: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(140, 109, 49, 0.1);
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            z-index: 1;
+            background: rgba(255,255,255,0.92);
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(140, 109, 49, 0.15);
+        }
+        .timeline-item {
+            border-left: 2px solid #a8c29f;
+            padding-left: 1.5rem;
+            margin-left: 0.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -7px;
+            top: 0;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #8c6d31;
+        }
+        .timeline-year {
+            font-weight: bold;
+            color: #8c6d31;
+            font-size: 1.1rem;
+        }
+
+        /* 导航栏样式：固定顶部+黎族木色+高亮动效 */
+        .navbar {
+            background-color: #8c6d31;
+            color: #fff;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            width: 100%;
+        }
+        .nav-wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+        .nav-menu li a {
+            padding: 0.5rem 0;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-menu li a:hover,
+        .nav-menu li a.active {
+            color: #a8c29f;
+        }
+        .nav-menu li a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #a8c29f;
+        }
+
+        /* 页面容器：单页切换核心样式 - 居中显示 */
+        .page {
+            display: none;
+            padding: 5rem 0;
+            min-height: calc(100vh - 76px);
+            position: relative;
+            width: 100%;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center center;
+        }
+        .page.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out;
+        }
+        /* 首页专属：静态全屏无滚动 */
+        #home.page {
+            padding: 0;
+            height: calc(100vh - 76px);
+            min-height: auto;
+            overflow: hidden;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* 首页样式：大图展示+遮罩+文字居中 */
+        .home-hero {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background-image: url('baicha-village.jpg');
+        }
+        .home-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(51, 43, 34, 0.5);
+        }
+        .home-content {
+            position: relative;
+            z-index: 2;
+            color: #fff;
+            text-align: center;
+            padding: 0 30px;
+        }
+        .home-content h1 {
+            font-size: 3.2rem;
+            margin-bottom: 1.2rem;
+            letter-spacing: 2px;
+        }
+        .home-content p {
+            font-size: 1.3rem;
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* 特色检索：分栏卡片布局 - 居中显示 */
+        #features.page {
+            background-image: url('tupian2.jpg');
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .feature-card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(140, 109, 49, 0.1);
+            border-top: 4px solid #a8c29f;
+            background: rgba(255,255,255,0.92);
+        }
+        .feature-card h3 {
+            margin-top: 0;
+            border-bottom: 2px solid #f8f5f0;
+            padding-bottom: 0.5rem;
+        }
+
+        /* 小游戏页面：优化样式+吸引点击文案+跳转按钮 */
+        #game.page {
+            background: #f8f5f0;
+        }
+        .game-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(140, 109, 49, 0.15);
+            padding: 4rem 3rem;
+            text-align: center;
+            margin-top: 2rem;
+            color: #6d4c41;
+            position: relative;
+            z-index: 2;
+            background: linear-gradient(135deg, #fff 0%, #faf6f0 100%);
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            border-top: 5px solid #8c6d31;
+        }
+        .game-card h3 {
+            font-size: 1.8rem;
+            color: #8c6d31;
+            margin-bottom: 1.5rem;
+            border: none;
+            padding: 0;
+        }
+        .game-desc {
+            font-size: 1.1rem;
+            line-height: 2;
+            margin-bottom: 3rem;
+            color: #332b22;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .game-btn {
+            background-color: #8c6d31;
+            color: white;
+            border: none;
+            padding: 1.2rem 3rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(140, 109, 49, 0.2);
+            text-decoration: none;
+            display: inline-block;
+        }
+        .game-btn:hover {
+            background-color: #6d4c41;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(140, 109, 49, 0.3);
+        }
+
+        /* 关于网页背景：居中+全屏填充 */
+        #about.page {
+            background-image: url('tupian4.jpg');
+        }
+        /* 简介页背景：居中+全屏填充 */
+        #intro.page {
+            background-image: url('tupian3.jpg');
+        }
+        /* 历史页背景：居中+全屏填充 */
+        #history.page {
+            background-image: url('tupian5.jpg');
+        }
+        /* 图片1容器：居中显示 */
+        .tupian1-box {
+            width: 100%;
+            height: 420px;
+            margin: 2.5rem auto;
+            border-radius: 8px;
+            background-image: url('tupian1.jpg');
+            background-size: cover;
+            background-position: center center;
+            position: relative;
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏：居中显示 - 完全未动 -->
+    <nav class="navbar">
+        <div class="nav-wrap">
+            <div class="nav-logo">海南白查村黎族船型屋非遗展示</div>
+            <ul class="nav-menu">
+                <li><a class="nav-link active" data-page="home">首页</a></li>
+                <li><a class="nav-link" data-page="intro">简介</a></li>
+                <li><a class="nav-link" data-page="history">历史</a></li>
+                <li><a class="nav-link" data-page="features">特色检索</a></li>
+                <li><a class="nav-link" data-page="game">小游戏</a></li>
+                <li><a class="nav-link" data-page="about">关于网页</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 首页：静态全屏无滚动 - 保持不变 -->
+    <div id="home" class="page active">
+        <div class="home-hero">
+            <div class="home-content">
+                <h1>黎族船型屋 · 活态的文化遗产</h1>
+                <p>中国唯一保存完好的黎族船型屋古村落，承载千年渡海记忆，凝聚黎族人民的生存智慧，国家级非物质文化遗产的璀璨瑰宝</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 简介页：居中显示 - 内容未动 -->
+    <div id="intro" class="page">
+        <div class="container">
+            <h2>白查村船型屋 基本简介</h2>
+            <div class="card">
+                <p>海南白查村黎族船型屋，坐落于<strong>海南省东方市江边乡</strong>（黎族美孚支系聚居地），是中国目前<strong>唯一保存完好、规模最大、年限最久</strong>的黎族船型屋古村落，占地面积16万平方米，现存87间落地式船型屋，其中81间为编号保护文物，被誉为<strong>“黎族传统建筑的活化石”</strong>。</p>
+                <p>船型屋因外形似倒扣篷船、内部如船舱而得名，黎语称“布隆亭竿”（竹架棚房），是黎族先民为适配海南湿热多台风的海岛气候，历经千年打造的传统民居。建筑以格木、麻竹、白藤、茅草为核心材料，采用<strong>无钉无铆的藤绑扎工艺</strong>，泥巴拌稻草为墙、竹木为骨、茅草盖顶，倒扣船型的独特设计兼具抗风避雨、通透防潮的实用价值，更是黎族渡海迁徙历史记忆与“男女共撑家”文化观念的物质载体。</p>
+                <h3>核心保护等级</h3>
+                <ul>
+                    <li>2008年：黎族船型屋营造技艺列入<strong>国家级非物质文化遗产名录</strong>（编号Ⅷ-182）</li>
+                    <li>2012年：入选<strong>首批中国传统村落</strong></li>
+                    <li>2013年：白查村船型屋群获评<strong>全国重点文物保护单位</strong></li>
+                    <li>2015年：列为<strong>海南省第三批省级文物保护单位</strong></li>
+                    <li>2021年：作为核心提名地纳入海南热带雨林和黎族传统聚落<strong>世界文化和自然双遗产预备清单</strong></li>
+                </ul>
+                <div class="tupian1-box"></div>
+                <p>如今的白查村，已不再是单纯的居住村落，更是黎族文化的展示窗口，依托非遗研学基地、白查驿站实现文旅融合，年接待游客超10万人次，让千年船型屋在保护中活化，在传承中新生。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 历史页：居中显示 - 内容未动 -->
+    <div id="history" class="page">
+        <div class="container">
+            <h2>白查村船型屋 历史编年</h2>
+            <div class="card">
+                <div class="timeline-item">
+                    <span class="timeline-year">远古时期 - 先秦</span>
+                    <p>黎族作为海南岛最早的居民，渡海迁徙至海南后，将独木舟倒扣为临时居所，成为船型屋的雏形；长期适应海岛气候的过程中，逐渐形成基础的竹木构架茅屋，奠定船型屋的核心形制。</p>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-year">宋 - 清代</span>
+                    <p>船型屋进入成熟发展阶段，<strong>干栏式</strong>为主要建造形式，房屋建于竹木之上，上层供人居住、下层饲养家畜，冬暖夏凉，适配海南湿热环境；丹雅公主传说为船型屋赋予深厚文化内涵，成为黎族族群的精神符号。</p>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-year">近代</span>
+                    <p>受汉族文化交流影响，黎族民居在传统船型屋基础上，出现<strong>金字型屋顶</strong>新范式，船型屋仍为核心形制，营造技艺通过口传心授代代相传，成为黎族民间工匠的核心技艺。</p>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-year">2008年</span>
+                    <p>黎族船型屋营造技艺正式列入<strong>国家级非物质文化遗产名录</strong>，成为国家层面重点保护的传统手工技艺，白查村船型屋群作为技艺的核心载体，受到全国关注。</p>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-year">2009年</span>
+                    <p>白查村实施民房改造，原住民整体搬迁至白查新村，原村落及船型屋交由<strong>东方市文物局</strong>专业保管，结束了船型屋的居住功能，正式进入专业保护阶段；文物局随即开展通风防霉、道路硬化等基础保护措施。</p>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-year">2012年 - 2015年</span>
+                    <p>2012年入选首批中国传统村落，2013年获评全国重点文物保护单位，2015年列为海南省第三批省级文物保护单位，白查村船型屋的保护等级不断提升，保护体系逐步完善。</p>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-year">2021年</span>
+                    <p>海南热带雨林和黎族传统聚落启动世界文化和自然双遗产申报工作，白查村作为<strong>核心提名地之一</strong>被列入预备清单，船型屋成为海南非遗文化走向世界的重要名片。</p>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-year">2024年8月</span>
+                    <p>东方市对白查村黎族特色船型屋开启<strong>新一轮专业修缮工程</strong>，针对茅草屋顶老化、墙体剥落等问题进行针对性修复，严格遵循“修旧如旧”原则。</p>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-year">2025年 至今</span>
+                    <p>完成63间船型屋修缮工作，划定专属保护区禁止拆改；传承人培训班连续举办5年，营造技艺传承者从最初4人增至23人，重点培养年轻工匠破解传承断层；数字化保护全面启动，通过三维扫描、BIM建模建立船型屋数字档案，实现非遗技艺的永久留存与可视化传承。</p>
+                </div>
+                <h3>历史传承核心特征</h3>
+                <p>白查村船型屋的历史，是黎族文化与自然共生的历史，从最初的生存需求到如今的非遗瑰宝，其营造技艺始终保留<strong>就地取材、无钉无铆、口传心授</strong>的核心特点，建筑形制虽略有演变，但承载的黎族迁徙记忆、家庭伦理、生态观念从未改变，成为中华民族多元文化中不可替代的珍贵遗产。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 特色检索页：居中显示 - 内容未动 -->
+    <div id="features" class="page">
+        <div class="container">
+            <h2>白查村船型屋 核心特色检索</h2>
+            <div class="feature-grid">
+                <!-- 特色1：建筑形制 -->
+                <div class="feature-card">
+                    <h3>独特建筑形制</h3>
+                    <p>整体呈弧形拱顶，状如倒扣独木舟，茅檐低矮垂地（标高0.8-1.0米），白查村以<strong>落地式</strong>为主，无高架基座，直接建于平地，防风防雨效果显著。</p>
+                    <p>标准船型屋总长14.7米、宽6米、屋脊最高3.2米，屋顶单坡弧长约12米，对称船形设计纪念黎族渡海迁徙历史。</p>
+                    <p>内部无隔断、分前后两节，前后开门无窗户，中央设火塘，适配黎族大家庭聚族而居的生活模式。</p>
+                </div>
+                <!-- 特色2：核心结构 -->
+                <div class="feature-card">
+                    <h3>三柱六椽 无钉无铆</h3>
+                    <p>核心承重体系为<strong>三柱六椽</strong>，黎语中主柱“戈额”（3根，直径18-22cm，高3.2m）象征男性，辅助柱“戈定”（6根，直径12-15cm，高1.8-2.0m）象征女性，寓意“男女共撑家、家庭和睦”。</p>
+                    <p>全程采用<strong>白藤十字交叉绑扎</strong>，无一颗铁钉，榫卯与藤编结合，遇水膨胀后越绑越紧，抗震抗风性强，且便于修缮。</p>
+                    <p>梁椽为麻竹材质，直径8-10cm，形成稳定的受力体系，弧形拱顶可降低台风风压40%以上。</p>
+                </div>
+                <!-- 特色3：材料工艺 -->
+                <div class="feature-card">
+                    <h3>就地取材 天人合一</h3>
+                    <p><strong>骨架</strong>：本地格木（树龄≥30年，坚韧耐腐）+麻竹（轻便有弹性），兼顾承重与实用。</p>
+                    <p><strong>墙体</strong>：红泥+稻草+草根按1:3:0.5配比夯筑（厚25-30cm），保温透气、调节温差。</p>
+                    <p><strong>屋顶</strong>：厚层茅草（铺设20cm），防水隔热，每2-3年更换一次，材料可再生。</p>
+                    <p><strong>地面</strong>：山间黏土夯实晒干，坚硬防潮，全程无人工建材，实现建筑与自然的和谐共生。</p>
+                </div>
+                <!-- 特色4：营造技艺 -->
+                <div class="feature-card">
+                    <h3>国家级非遗营造技艺</h3>
+                    <p>全套技艺分<strong>前期准备+核心营造</strong>两大阶段，由村老主持祭祀定址，选材、备料、立柱、架梁、糊墙、铺顶均有严格讲究。</p>
+                    <p>无固定图纸、无精准标尺，全凭老匠人经验与手感完成，每一栋船型屋都是独一无二的手工艺术品。</p>
+                    <p>核心工序：挖60cm柱坑定柱→麻竹梁藤条绑扎→细编椽网→红泥稻草糊墙→S型铺茅草顶→设三石灶祭祀落成。</p>
+                </div>
+                <!-- 特色5：文化内涵 -->
+                <div class="feature-card">
+                    <h3>深厚文化象征</h3>
+                    <p>船型造型：象征祖先的“舟”，是族群身份与祖灵信仰的符号，承载“舟居”记忆与渡海迁徙历史。</p>
+                    <p>火塘：家族血脉、族群记忆的凝聚点，兼具做饭、取暖、议事功能，与黎族祖先崇拜深度绑定。</p>
+                    <p>隆闺/谷仓：村内7间“隆闺”保留黎族婚俗文化，6间谷仓悬空结构+泥墙封堵，具备防潮防虫功能。</p>
+                    <p>生态观念：就地取材、顺应自然的建造理念，体现黎族“天人合一”的生存智慧。</p>
+                </div>
+                <!-- 特色6：结构优势 -->
+                <div class="feature-card">
+                    <h3>四大核心结构优势</h3>
+                    <p>1. 仿生设计：弧形屋顶分散台风冲击力，穿堂风调节室内温度，完美适配海岛气候。</p>
+                    <p>2. 工艺环保：无钉无铆，藤绑扎工艺低能耗、高可持续，可拆可移，便于修缮。</p>
+                    <p>3. 成本低廉：所有材料均取自当地自然资源，可再生、易获取，符合黎族生产生活特点。</p>
+                    <p>4. 空间适配：开阔无隔断的布局，适配黎族大家庭聚居，火塘核心设计凝聚族群情感。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 小游戏页：优化文案+跳转按钮 - 仅修改按钮路径 -->
+    <div id="game" class="page">
+        <div class="container">
+            <h2>船型屋非遗互动小游戏</h2>
+            <div class="game-card">
+                <h3>沉浸式体验黎族船型屋建造技艺</h3>
+                <p class="game-desc">
+                    化身黎族工匠，亲手搭建一座承载千年记忆的船型屋！从选材备料到立柱架梁，沉浸式感受国家级非遗营造技艺的独特魅力，在互动中解锁黎族先民的生存智慧与文化密码。
+                </p>
+                <!-- 按钮跳转路径已改为 LIZU/index.html -->
+                <a href="LIZU/index.html" class="game-btn" target="_blank">进入船型屋建造世界</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 关于网页页：居中显示 - 内容未动 -->
+    <div id="about" class="page">
+        <div class="container">
+            <h2>关于本网页</h2>
+            <div class="game-card">
+                <h3>海南白查村黎族船型屋非遗展示平台</h3>
+                <p class="game-desc">
+                    本网页以“保护非遗、传承文化”为核心主旨，全面展示海南白查村黎族船型屋的历史、形制、技艺与文化内涵，通过简洁直观的视觉设计、条理清晰的内容布局，让更多人了解这一国家级非物质文化遗产的独特价值，助力黎族船型屋营造技艺的传承与传播。
+                </p>
+                <p style="margin-top: 2rem; font-size: 0.9rem; color: #8c6d31;">© 2026 4C大赛海南白查村黎族船型屋非遗展示小组 版权所有</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 单页切换JS：完全未动 -->
+    <script>
+        // 获取导航链接和页面
+        const navLinks = document.querySelectorAll('.nav-link');
+        const pages = document.querySelectorAll('.page');
+
+        // 点击导航切换逻辑
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                // 移除所有高亮
+                navLinks.forEach(l => l.classList.remove('active'));
+                pages.forEach(p => p.classList.remove('active'));
+                // 给当前点击项加高亮
+                link.classList.add('active');
+                // 显示对应页面
+                const targetPage = link.getAttribute('data-page');
+                document.getElementById(targetPage).classList.add('active');
+                // 回到页面顶部
+                window.scrollTo(0, 0);
+            });
+        });
+    </script>
+</body>
+</html>
